@@ -21,46 +21,52 @@ const { ListNode } = require('../extensions/list-node.js');
 class Queue {
 
   constructor() {
-    this.length = 0;
-    this.first = 0;
-    this.dic = {};
+    this.dic = [];
   }
 
   enqueue(value) {
-    this.dic[this.length] = value;
-    this.length++;
+    this.dic.push(value);
   }
 
   dequeue() {
-    // if (this.isEmpty()) {
-    //   return undefined
-    // } 
-    const result = this.dic[this.first];
-    delete this.dic[this.first];
-    this.first++;
-    return result
+    if (this.dic.length === 0) {
+      return null
+    }
+    const value = this.dic[0];
+    this.dic.splice(0, 1);
+    return value;
   }
 
   getUnderlyingList() {
+
+    // return "123"
     // let elem = `${this.dic[this.first]}`;
     // for (let i = this.first + 1; i < this.length; i++) {
     //   elem = `${elem},${this.dic[i]}`;
     // }
     // return elem
-    var dict = [];
+    // return "123"
+    return print(0, this.dic)
 
-     let elem = `${this.dic[this.first]}`;
-     dict.push({
-      value: elem
-  });
-    for (let i = this.first + 1; i < this.length; i++) {
-      elem = `${elem},${this.dic[i]}`;
-      dict.push({
-        next: elem
-    });
+    function print(pos, arr) {
+      function Node(value) {
+        this.value = value;
+        this.next = null;
+      }
+
+      if (arr.length === 0) {
+        return null
+      }
+
+      let node = new Node(arr[pos])
+      if (pos !== arr.length - 1) {
+        node.next = print(pos + 1, arr)
+      }
+      return node
     }
-    return dict
+
   }
+
   //------------------------------------version 1----------------------------------------------------------------
   // constructor() {
   //   this.head = null;

@@ -41,7 +41,10 @@ class Stack {
   }
 
   pop() {
-    return this.arr.pop();
+    if(this.arr.length > 0) {
+      return this.arr.pop();
+    }
+    
     // let removeElem = this.arr[arr.length-1];
     // this.arr.splice([arr.length-1], 1);
     // return removeElem;
